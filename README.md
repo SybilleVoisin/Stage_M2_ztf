@@ -36,3 +36,5 @@ I used a [Python (3.11.5)](https://www.python.org/downloads/release/python-3115/
 ## Licence
 
 [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License](LICENCE.txt)
+
+This license lets others remix, tweak, and build upon this work non-commercially, as long as they credit the authors and license their new creations under the identical terms.
