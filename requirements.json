@@ -6,6 +6,8 @@
     "matplotlib": "3.8.2",
     "pandas": "2.1.4",
     "ipython": "8.15.0",
-    "jax": "0.4.26"
+    "jax": "0.4.26",
+    "tensorflow":"2.12.0",
+    "optax": "0.2.2"
   }
 }
