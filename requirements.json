@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "numpy": "1.23.5",
+    "scipy": "1.11.4",
+    "astropy": "5.3.4",
+    "matplotlib": "3.8.2",
+    "pandas": "2.1.4",
+    "ipython": "8.15.0",
+    "jax": "0.4.26"
+  }
+}
