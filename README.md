@@ -5,17 +5,16 @@
 As part of my M2 internship at the Centre de Calcul [CC-IN2P3](https://cc.in2p3.fr/), I optimized the PSF (Point Spread Function) code for the [ZTF](https://www.ztf.caltech.edu/) (Zwicky Transient Facility) collaboration.
 Located atop Palomar Mountain in California (USA), the ZTF telescope is an astronomy observatory. 
 It was inaugurated in March 2018 and is supported jointly by an international partnership of universities and institutes of Europe and Asia and the US National Science Foundation. 
-Its purpose is to scan the night sky for transient and variable astronomical phenomena such as SNeIa. 
+Its purpose is to scan the night sky for transient and variable astronomical phenomena such as Type Ia Supernovae. 
 To study supernovae, ZTF team uses an image processing pipeline that consists in cleaning the data (bias, flat, non-linearity effects, etc.) and then analyzing the images, in particular with the PSF.
 
-The official PSF code is written in C++ to run on CPUs. Although it is already optimized, we wonder if it can be further optimized. 
-The PSF code consists mainly of image processing. That is why the idea of parallelization on GPUs seems a good optimization solution.
-For my part, I used [Python](https://www.python.org/) with [Google JAX](https://github.com/google/jax) on CPU and GPU to compare performance on different frameworks. 
-I also did some profiling thanks to [Perfetto](https://perfetto.dev/docs/) to help to understand how my code behaved. 
+The official PSF code is written in C++ to run on CPUs. Although it is well optimized on CPU, we wanted to check whether it can be further optimized on GPU, as the PSF code consists mainly of image processing.
+For this study, I have used a [Google JAX](https://github.com/google/jax) framework. JAX provides to main interesting features: it can be run on CPU and GPU, it is NumPy-like code.   
+I also started to make profiling based on [Perfetto](https://perfetto.dev/docs/) tool to better understand whether the code could be further optimized. 
 
-My work involved using two different distributions to fit the PSF model (the [Gaussian](https://en.wikipedia.org/wiki/Gaussian_function) function and the [Moffat](https://en.wikipedia.org/wiki/Moffat_distribution) function), and testing different optimizers (in my case: [minimize](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html) from SciPy, [Adam](https://optax.readthedocs.io/en/latest/api/optimizers.html) from Optax and [TN-CG](https://www.cs.toronto.edu/~jmartens/docs/Deep_HessianFree.pdf) from the ztf collaboration). For more details, please read my [internship report](presentation/internship_report_Voisin_Sybille_01_06_2024.pdf).
+In this work we used two different distributions to fit the PSF model (the [Gaussian](https://en.wikipedia.org/wiki/Gaussian_function) and the [Moffat](https://en.wikipedia.org/wiki/Moffat_distribution) functions), the actual fit has been completed thanks to different optimizers in order to do some cross analyses (in my case: [minimize](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html) from SciPy, [Adam](https://optax.readthedocs.io/en/latest/api/optimizers.html) from Optax and [TN-CG](https://www.cs.toronto.edu/~jmartens/docs/Deep_HessianFree.pdf) from the ztf collaboration). For more details, please read my [internship report](presentation/internship_report_Voisin_Sybille_01_06_2024.pdf).
 
-In addition, a pixel grid has been added to better center the fit.
+Finally, a pixel grid has been added to better center the fit.
 
 Here an example of the pixel grid effect:
 ![image of the pixel grid](data/images_readme/pixel_grid.png)
@@ -30,7 +29,7 @@ git clone https://github.com/SybilleVoisin/Stage_M2_ztf.git
 
 You will need the following packages [ztfimg](https://github.com/MickaelRigault/ztfimg), [ztfin2p3](https://github.com/MickaelRigault/ztfin2p3) and [ztfquery](https://github.com/MickaelRigault/ztfquery) to get the data and the ztf pipeline.
 
-I used a [Python (3.11.5)](https://www.python.org/downloads/release/python-3115/) environment overloading the ztf environment.
+I have used the official ZTF environment based on [Python (3.11.5)](https://www.python.org/downloads/release/python-3115/) which I have overloaded with the a custom environment which was providing the required Python dependencies given below.
 I worked on NVIDIA V100 GPUs, at the time of testing, the CUDA version was 12.2, which limited the version of JAX compatible.
 
 **Requirements**
